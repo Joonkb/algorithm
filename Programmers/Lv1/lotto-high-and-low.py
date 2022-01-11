@@ -1,16 +1,16 @@
-# This is a sample Python script.
+def solution(lottos, win_nums):
+    answer = []
+    zero_count = lottos.count(0)  # 0의 개수
+    count = sum([1 for n in lottos if n in win_nums])  # 맞힌 수
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+    # 최고 순위 계산
+    high = 1 if zero_count + count <= 1 else zero_count + count
+    answer.append(7 - high)
 
+    # 최저 순위 계산
+    low = 1 if count <= 0 else count
+    answer.append(7 - low)
+    return answer
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+if __name__ == "__main__":
+    solution([44, 1, 0, 0, 31, 25], [31, 10, 45, 1, 6, 19])
