@@ -9,12 +9,19 @@ public class 삼각달팽이 {
     public static int[] solution(int n) {
 
         int[][] tempArr = new int[n][n];
-        int num = 1, sx = 0, sy = 0, dir = 0;
+        int num = 1, sx = -1, sy = 0, dir = 0;
         int lastNum = n * (n + 1) / 2;
 
-        while (num != lastNum) {
+        System.out.println("!@#$ n = " + n);
+        System.out.println("!@#$ lastNum = " + lastNum);
+
+        while (num != (lastNum + 1)) {
+            System.out.println("!@#$ num = " + num);
+            printArr(tempArr, n);
+            sx += dx[dir]; sy += dy[dir];
             while (isInRange(sx, sy, n, tempArr)) {
                 tempArr[sx][sy] = num++;
+                printArr(tempArr, n);
                 sx += dx[dir]; sy += dy[dir];
             }
             sx -= dx[dir]; sy -= dy[dir];
@@ -33,16 +40,28 @@ public class 삼각달팽이 {
     private static int[] getAnswerArr(int[][] source, int n) {
         int cnt = 0;
         int[] result = new int[n * (n + 1) / 2];
-        for(int i = 1; i <= n; i++) {
-            for(int j = 0; j < i; j++) {
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < i + 1; j++) {
                 result[cnt++] = source[i][j];
             }
         }
         return result;
     }
 
+    private static void printArr(int[][] temp, int n) {
+        System.out.println();
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                System.out.print(temp[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
     public static void main(String[] args) {
-        int cnt[] = solution(3);
+        // TestCase # (n=4)
+        int cnt[] = solution(4);
         for (int num : cnt) {
             System.out.print(num + " ");
         }
