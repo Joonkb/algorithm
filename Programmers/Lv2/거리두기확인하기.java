@@ -11,18 +11,16 @@ public class 거리두기확인하기 {
 
     public static int[] solution(String[][] places) {
 
-        places = new String[][]
+/*        places = new String[][]
                   {{"POOOP", "OXXOX", "OPXPX", "PXXOX", "XPXXP"},
                   {"POOPX", "OXPXP", "PXXXO", "OXXXO", "OOOPP"},
                   {"PXOPX", "OXOXP", "OXPOX", "OXXOP", "PXPOX"},
                   {"OOOXX", "XOOOX", "OOOXX", "OXOOX", "OOOOO"},
-                  {"PXPXP", "XPXPX", "PXPXP", "XPXPX", "PXPXP"}};
+                  {"PXPXP", "XPXPX", "PXPXP", "XPXPX", "PXPXP"}};*/
 
         int answer[] = new int[5];
         for (int i = 0; i < 5; i++) {
-            System.out.println("waiting Number = " + (i + 1));
             answer[i] = checkWaitingRoom(places[i]);
-            System.out.println("answer[i] = " + i  + " "+ answer[i]);
         }
         return answer;
     }
@@ -33,7 +31,6 @@ public class 거리두기확인하기 {
 
         // String[] --> int[][] 변환하여 계산
         int[][] waitingRoom = convertStrArrToIntArr(room);
-        printArr(waitingRoom);
 
         // 각각의 응시자 위치에서 거리두기 판단.
         for(int i = 0; i < 5; i++) {
@@ -56,13 +53,10 @@ public class 거리두기확인하기 {
     // 1. 인접한(맨해튼거리=1) 위치의 사람을 확인한다. check
     // false -> 응시자가 인접해 있음, true --> 응시자가 없음
     private static boolean hasPeopleWithinOneDist(int[][] places, int x, int y) {
-
         for (int dir = 0; dir < 4; ++dir) {
             int nx = x + dx[dir];
             int ny = y + dy[dir];
             if (isInRange(nx, ny) && places[nx][ny] == 2) {
-                System.out.println("거리두기확인하기.hasPeopleWithinOneDist START");
-                System.out.println("(nx, ny) = ( " + nx + ", " + ny + " )");
                 return false;
             }
         }
@@ -93,12 +87,11 @@ public class 거리두기확인하기 {
             int nx = x + dDx[dir];
             int ny = y + dDy[dir];
 
+            // 아래의 조건 잘 생각해보기!!
             if(isInRange(nx, ny)
                 && places[nx][ny] == 2
-                && places[x + dx[dir]][y + dy[dir]] != 0
-                && places[x + dx[(dir + 1) % 4]][y + dy[ (dir + 1) % 4 ]] != 0) {
-                System.out.println("거리두기확인하기.hasPeopleManhattanDistThree Point");
-                System.out.println("(nx, ny) = ( " + nx + ", " + ny + " )");
+                && (places[x + dx[dir]][y + dy[dir]] != 0
+                || places[x + dx[(dir + 1) % 4]][y + dy[ (dir + 1) % 4 ]] != 0)) {
                 return false;
             }
         }
@@ -132,16 +125,6 @@ public class 거리두기확인하기 {
             }
         }
         return arr;
-    }
-
-    private static void printArr(int[][] arr) {
-        System.out.println();
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                System.out.print(arr[i][j] + " ");
-            }
-            System.out.println();
-        }
     }
 
     public static void main(String[] args) {
