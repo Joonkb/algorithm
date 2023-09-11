@@ -3,24 +3,20 @@ package W11;
 public class 시저암호 {
     public String solution(String s, int n) {
         StringBuilder sb = new StringBuilder();
-        for (char c : s.toCharArray()) {
-            if(c == ' ') {
-                sb.append(' ');
-                continue;
-            }
-            if (isLowerCase(c)) {
-                c -= 'a';
-                c += n;
-                sb.append("" + Character.toString('a' + (c%26)));
-                continue;
-            }
-            c -= 'A';
-            c += n;
-            sb.append(""+  Character.toString('A' + (c%26)));
+        for (Character ch : s.toCharArray()) {
+            sb.append(pushAlpha(ch, n));
         }
         return sb.toString();
     }
-    private boolean isLowerCase(char c) {
-        return 'a' <= c && c <= 'z';
+
+    private Character pushAlpha(Character s, int n) {
+        if(!Character.isAlphabetic(s)) return ' ';
+
+        // 시저암호 구현.
+        char alpha = (Character.isLowerCase(s) ? 'a' : 'A');
+        int offset = s - alpha;
+        int pushedAlpha = (n + offset) % 26 + alpha;
+
+        return (char)pushedAlpha;
     }
 }
